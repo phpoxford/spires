@@ -3,7 +3,7 @@
   "type": "library",
   "description": "Spires IRC bot",
   "homepage": "https://github.com/phpoxford/spires",
-  "license": "tbd",
+  "license": "MIT",
   "authors": [
     {
       "name": "Martin Dilling-Hansen",
