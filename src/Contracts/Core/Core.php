@@ -65,5 +65,4 @@ interface Core extends Container
      * @return bool
      */
     public function isBooted();
-
 }

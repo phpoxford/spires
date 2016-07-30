@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace Spires\Irc;
 
 use Spires\Contracts\Core\Core;
-use Spires\Core\Dispatcher;
-use Spires\Core\Plugin;
 
 class ServiceProvider extends \Spires\Core\ServiceProvider
 {
@@ -59,7 +57,6 @@ class ServiceProvider extends \Spires\Core\ServiceProvider
      */
     public function boot()
     {
-
     }
 
     /**

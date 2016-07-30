@@ -12,7 +12,6 @@ use ReflectionParameter;
 use Spires\Contracts\Container\Container as ContainerContract;
 use Spires\Contracts\Container\BindingResolutionException;
 
-
 class Container implements ArrayAccess, ContainerContract
 {
     /**
@@ -208,11 +207,13 @@ class Container implements ArrayAccess, ContainerContract
         // dependency instances and then use the reflection instances to make a
         // new instance of this class, injecting the created dependencies in.
         $parameters = $this->keyParametersByArgument(
-            $dependencies, $parameters
+            $dependencies,
+            $parameters
         );
 
         $instances = $this->getDependencies(
-            $dependencies, $parameters
+            $dependencies,
+            $parameters
         );
 
         array_pop($this->buildStack);
@@ -407,7 +408,8 @@ class Container implements ArrayAccess, ContainerContract
             return $parameter->getDefaultValue();
         }
 
-        $message = "Unresolvable dependency resolving [$parameter] in class {$parameter->getDeclaringClass()->getName()}";
+        $message = "Unresolvable dependency resolving [$parameter] " .
+            "in class {$parameter->getDeclaringClass()->getName()}";
 
         throw new BindingResolutionException($message);
     }
@@ -424,12 +426,10 @@ class Container implements ArrayAccess, ContainerContract
     {
         try {
             return $this->make($parameter->getClass()->name);
-        }
-
+        } catch (BindingResolutionException $e) {
             // If we can not resolve the class instance, we will check to see if the value
             // is optional, and if it is we will return the optional parameter value as
             // the value of the dependency, similarly to how we do this with scalars.
-        catch (BindingResolutionException $e) {
             if ($parameter->isOptional()) {
                 return $parameter->getDefaultValue();
             }
@@ -469,7 +469,6 @@ class Container implements ArrayAccess, ContainerContract
         }
 
         return new ReflectionFunction($callable);
-
     }
 
     /**

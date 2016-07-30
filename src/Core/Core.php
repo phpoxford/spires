@@ -279,7 +279,9 @@ class Core extends Container implements CoreContract
         $default = $provider->config();
 
         if ($undefined = array_keys(array_diff_key($config, $default))) {
-            throw new UndefinedConfigKeyException('Undefined config keys passed to provider: [' . implode(', ', $undefined) . ']');
+            throw new UndefinedConfigKeyException(
+                'Undefined config keys passed to provider: [' . implode(', ', $undefined) . ']'
+            );
         }
 
         foreach (array_merge($default, $config) as $key => $value) {
