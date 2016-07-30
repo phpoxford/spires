@@ -12,7 +12,7 @@ class Core extends Container implements CoreContract
     /**
      * @var string
      */
-    const VERSION = '0.1.0';
+    const VERSION = '0.1.1';
 
     /**
      * @var string
@@ -51,8 +51,6 @@ class Core extends Container implements CoreContract
     public function __construct($basePath = null)
     {
         $this->registerBaseBindings();
-        $this->registerBaseServiceProviders();
-//        $this->registerCoreContainerAliases();
 
         if ($basePath) {
             $this->setBasePath($basePath);
@@ -110,6 +108,20 @@ class Core extends Container implements CoreContract
         }
 
         return $provider;
+    }
+
+    /**
+     * Register all of the base service providers.
+     *
+     * @return void
+     */
+    public function registerBaseServiceProviders()
+    {
+        $this->register(\Spires\Plugins\SystemMessage\ServiceProvider::class);
+        $this->register(\Spires\Plugins\ChannelOperations\ServiceProvider::class);
+        $this->register(\Spires\Plugins\PingPong\ServiceProvider::class);
+        $this->register(\Spires\Plugins\Message\ServiceProvider::class);
+        $this->register(\Spires\Plugins\BangMessage\ServiceProvider::class);
     }
 
     /**
@@ -171,17 +183,6 @@ class Core extends Container implements CoreContract
         $this->instance(\Spires\Contracts\Core\Core::class, $this);
         $this->instance('core', $this);
         $this->instance(Container::class, $this);
-    }
-
-    /**
-     * Register all of the base service providers.
-     *
-     * @return void
-     */
-    protected function registerBaseServiceProviders()
-    {
-//        $this->register(new LogServiceProvider($this));
-//        $this->register(new RoutingServiceProvider($this));
     }
 
     /**

@@ -32,6 +32,13 @@ interface Core extends Container
     public function register($provider, array $config = [], $force = false);
 
     /**
+     * Register all of the base service providers.
+     *
+     * @return void
+     */
+    public function registerBaseServiceProviders();
+
+    /**
      * Get the service providers that have been loaded.
      *
      * @return array

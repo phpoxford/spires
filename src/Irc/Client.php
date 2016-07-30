@@ -64,6 +64,8 @@ class Client
 
     public function connect()
     {
+        $this->logHeading('Spires connecting');
+
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
         $isConnected = socket_connect(
@@ -88,6 +90,21 @@ class Client
 
         $this->logWrite($response);
         return socket_write($this->socket, $response . "\r\n");
+    }
+
+    public function logCore(Core $core)
+    {
+        $this->logHeading('Spires booted');
+
+        $this->logDebug("Providers:");
+        foreach ($core->getLoadedProviders() as $provider => $active) {
+            $this->logDebug("  - " . $provider);
+        }
+
+        $this->logDebug("Plugins:");
+        foreach ($core->getPlugins() as $name => $plugin) {
+            $this->logDebug("  - " . $name);
+        }
     }
 
     public function log(string $title, string $string)
@@ -138,6 +155,8 @@ class Client
 
     public function run()
     {
+        $this->logHeading('Spires listening');
+
         $parser = new Parser();
 
         while ($raw = $this->read()) {

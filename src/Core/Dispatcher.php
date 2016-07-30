@@ -9,7 +9,6 @@ use Spires\Contracts\Core\Core as SpiresCore;
 
 class Dispatcher
 {
-
     /**
      * @var Core
      */
