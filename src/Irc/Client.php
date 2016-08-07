@@ -68,7 +68,7 @@ class Client
 
         $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
-        $isConnected = socket_connect(
+        socket_connect(
             $this->socket,
             $this->connection()->server(),
             $this->connection()->port()
@@ -165,17 +165,10 @@ class Client
             }
             $this->logLine();
             $this->logRead($raw);
-            $messageArray = $parser->parse($raw . "\r\n");
 
-            $message = new RawMessage(
-                $messageArray['nickname'],
-                $messageArray['username'],
-                $messageArray['hostname'],
-                $messageArray['serverName'],
-                $messageArray['command'],
-                $messageArray['params']
+            $message = RawMessage::fromArray(
+                $parser->parse($raw . "\r\n")
             );
-
             $this->dispatcher->dispatch($message);
         }
     }

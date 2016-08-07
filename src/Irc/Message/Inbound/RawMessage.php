@@ -26,6 +26,24 @@ class RawMessage extends \Spires\Irc\Message\Outbound\RawMessage
         parent::__construct($command, $params);
     }
 
+    /**
+     * Create a RawMessage from the output of Parser::parse()
+     *
+     * @param array $messageParts
+     * @return RawMessage
+     */
+    public static function fromArray($messageParts)
+    {
+        return new RawMessage(
+            $messageParts['nickname'],
+            $messageParts['username'],
+            $messageParts['hostname'],
+            $messageParts['serverName'],
+            $messageParts['command'],
+            $messageParts['params']
+        );
+    }
+
     public static function from(RawMessage $message)
     {
         return new static(
