@@ -42,8 +42,21 @@ function reply(string $text)
  * Returns the first element of the given array
  *
  * @param array $array
+ * @return mixed
  */
 function head($array)
 {
     return array_values($array)[0];
+}
+
+/**
+ * Returns everything but the head of the array
+ *
+ * @param array $array
+ * @return mixed
+ */
+function tail($array)
+{
+    array_shift($array);
+    return $array;
 }
