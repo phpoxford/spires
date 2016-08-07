@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 use Spires\Core\Core;
 use Spires\Irc\Client;
+use Spires\Plugins\Message\Inbound\Message as InboundMessage;
 use Spires\Plugins\Message\Outbound\Message;
 use Spires\Plugins\SystemMessage\Outbound\SystemMessage;
-use Spires\Plugins\Message\Inbound\Message as InboundMessage;
 
 function core(string $abstract = null, array $parameters = [])
 {
@@ -36,4 +36,14 @@ function reply(string $text)
     }, $targets);
 
     send_to($targets, $text);
+}
+
+/**
+ * Returns the first element of the given array
+ *
+ * @param array $array
+ */
+function head($array)
+{
+    return array_values($array)[0];
 }
