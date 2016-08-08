@@ -14,7 +14,7 @@ class Plugin
      */
     public function createBangMessage(Message $message)
     {
-        if ($message->text()[0] === '!') {
+        if (preg_match('/^![^\s]/', $message->text())) {
             return BangMessage::from($message);
         }
 
