@@ -5,20 +5,11 @@
 
 namespace Spires\Tests\Plugins\BangMessage\Inbound;
 
-use Spires\Plugins\BangMessage\Inbound\BangMessage;
 use Spires\Tests\Resources\SpiresTestCase;
+use Spires\Plugins\BangMessage\Inbound\BangMessage;
 
 class BangMessageTest extends SpiresTestCase
 {
-    /**
-     * @test
-     */
-    function it_returns_the_text_minus_the_bang()
-    {
-        $bangMessage = BangMessage::from($this->newRawMessage("!foo hello world"));
-        assertThat($bangMessage->text(), is("foo hello world"));
-    }
-
     /**
      * @test
      */
@@ -26,5 +17,14 @@ class BangMessageTest extends SpiresTestCase
     {
         $bangMessage = BangMessage::from($this->newRawMessage("!foo hello world"));
         assertThat($bangMessage->bangCommand(), is("foo"));
+    }
+
+    /**
+     * @test
+     */
+    function it_provides_the_bang_params()
+    {
+        $bangMessage = BangMessage::from($this->newRawMessage("!foo hello world"));
+        assertThat($bangMessage->bangText(), is("hello world"));
     }
 }

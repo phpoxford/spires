@@ -16,11 +16,22 @@ class BangMessage extends Message
      */
     public function bangCommand()
     {
-        return head(explode(' ', $this->text()));
+        list($bangCommand, $bangText) = explode(' ', $this->text(), 2);
+
+        return ltrim($bangCommand, '!');
     }
 
-    public function text()
+    /**
+     * The bang text
+     * e.g. the message "!somersault mouse acrobat"
+     * would return "mouse acrobat" as the bang text
+     *
+     * @return string
+     */
+    public function bangText()
     {
-        return ltrim(parent::text(), '!');
+        list($bangCommand, $bangText) = explode(' ', $this->text(), 2);
+
+        return $bangText;
     }
 }
